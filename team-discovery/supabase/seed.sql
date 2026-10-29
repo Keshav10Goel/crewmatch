@@ -1,0 +1,2 @@
+-- Optional demo content is intentionally not fabricated.
+-- Create real opportunities from the authenticated UI after applying the migration.
