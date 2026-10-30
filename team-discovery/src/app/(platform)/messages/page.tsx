@@ -1,3 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
-import { MessageSquare } from "lucide-react";
-export default async function MessagesPage(){const s=await createClient();const {data:{user}}=await s.auth.getUser();const {data,error}=await s.from("messages").select("id,conversation_id,sender_id,body,created_at").eq("recipient_id",user!.id).order("created_at",{ascending:false}).limit(50);return <div className="space-y-6"><div><p className="text-sm text-violet-300">Direct collaboration</p><h1 className="mt-2 text-3xl font-semibold">Messages</h1><p className="mt-2 text-sm text-slate-400">Messaging is available for accepted connections only.</p></div><div className="panel p-8"><MessageSquare size={24} className="text-violet-300"/><h2 className="mt-4 font-semibold">{error?"Messages unavailable":data?.length?"Recent messages":"Messaging workspace is ready for connection-based conversations"}</h2><p className="mt-2 text-sm leading-6 text-slate-500">{error?"Verify database setup and access policies.":data?.length?`${data.length} recent message(s) loaded. A threaded realtime chat UI is not included in this initial implementation.`:"The schema supports messages, but threaded realtime chat UI and subscriptions remain to be implemented."}</p></div></div>}
+import { MessagesClient } from "@/components/messages-client";
+
+export default function MessagesPage() {
+  return <MessagesClient />;
+}
